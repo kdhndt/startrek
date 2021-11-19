@@ -26,8 +26,6 @@ public class Bestelling {
         this.bedrag = bedrag;
     }
 
-
-
     public long getId() {
         return id;
     }

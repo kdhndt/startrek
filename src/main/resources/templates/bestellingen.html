@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments::head(title='Bestellingen')"></head>
+<body>
+
+<div th:if="not ${bestellingen}" class="fout">
+    Bestellingen niet gevonden.
+</div>
+
+<th:block th:if="${bestellingen}">
+    <table>
+        <thead>
+        <tr>
+            <!--        header cell-->
+            <th>Nummer</th>
+            <th>Omschrijving</th>
+            <th>Bedrag</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bestelling : ${bestellingen}" th:object="${bestelling}">
+            <td th:text="*{id}" class="test"></td>
+            <td th:text="*{omschrijving}"></td>
+            <td th:text="*{bedrag}"></td>
+        </tr>
+        </tbody>
+    </table>
+</th:block>
+<a th:text="Startpagina" th:href="@{/}"></a>
+</body>
+</html>

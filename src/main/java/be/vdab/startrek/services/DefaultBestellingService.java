@@ -34,10 +34,10 @@ public class DefaultBestellingService implements BestellingService {
     @Override
     public long createBestellingEnWijzigBudget(Bestelling bestelling) {
         //lock beide voor het wijzigen
-        bestellingenRepository.findBestellingenByWerknemerIdAndLock(bestelling.getId());
-        werknemersRepository.findByIdAndLock(bestelling.getId());
+        bestellingenRepository.findBestellingenByWerknemerIdAndLock(bestelling.getWerknemerId());
+        werknemersRepository.findByIdAndLock(bestelling.getWerknemerId());
         //voer samen uit in een transactie
-        werknemersRepository.wijzigBudget(bestelling.getWerknemerId(), bestelling.getBedrag());
+        werknemersRepository.verlaagBudget(bestelling.getWerknemerId(), bestelling.getBedrag());
         return bestellingenRepository.create(bestelling);
     }
 }

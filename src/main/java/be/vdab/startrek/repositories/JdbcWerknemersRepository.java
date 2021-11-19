@@ -65,7 +65,7 @@ public class JdbcWerknemersRepository implements WerknemersRepository {
     }
 
     @Override
-    public void wijzigBudget(long id, BigDecimal bedrag) {
+    public void verlaagBudget(long id, BigDecimal bedrag) {
         //dit is de SQL versie van een if statement, where id = ? and budget >= ?
         //als het budget niet >= bedrag, zal de statement simpelweg niet uitgevoerd worden
         var sql = """
@@ -73,6 +73,7 @@ public class JdbcWerknemersRepository implements WerknemersRepository {
                 set budget = budget - ?
                 where id = ? and budget >= ?
                 """;
+        //aantal aangepaste records controleren
         if (template.update(sql, bedrag, id, bedrag) == 0) {
             if (findById(id).isEmpty()) {
                 throw new WerknemerNietGevondenException();

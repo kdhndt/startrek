@@ -1,3 +1,10 @@
+.naastMekaar {
+    padding-left: 0;
+}
+.naastMekaar li {
+    display: inline;
+}
+
 body {
     background-color: #FFFFDE;
     font-family: sans-serif;
@@ -10,7 +17,6 @@ body {
 .blauw {
     background-color: LightBlue;
 }
-
 
 .fullwidth {
     width: 100%;

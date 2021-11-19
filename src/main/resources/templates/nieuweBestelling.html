@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments::head(title='Bestelling toevoegen')"></head>
+<body>
+<h1>Bestelling voor
+    <th:block th:text="${werknemer.naam}"></th:block>
+</h1>
+<form method="post" th:object="${bestelling}" th:action="@{/bestellingen}">
+    <!--geef id de value die hij kreeg in het meegegeven model, anders is deze Bestelling niet @Valid bij het ontvangen in de controller-->
+    <!--geef attributen terug in de correcte volgorde-->
+    <!--let op met hoofdletters, e.g. werknemerId-->
+    <input type="hidden" name="id" th:value="*{id}">
+    <input type="hidden" name="werknemerId" th:value="*{werknemerId}">
+    <label>Omschrijving<span th:errors="*{omschrijving}"></span><input th:field="*{omschrijving}" required></label>
+    <label>Bedrag<span th:errors="*{bedrag}"></span><input th:field="*{bedrag}" required type="number" min="0"></label>
+    <button>Bestel</button>
+</form>
+
+<a th:text="Startpagina" th:href="@{/}"></a>
+</body>
+</html>

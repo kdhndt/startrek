@@ -10,5 +10,5 @@ public interface WerknemersRepository {
     List<Werknemer> findAll();
     Optional<Werknemer> findById(long id);
     Optional<Werknemer> findByIdAndLock(long id);
-    void wijzigBudget(long id, BigDecimal bedrag);
+    void verlaagBudget(long id, BigDecimal bedrag);
 }

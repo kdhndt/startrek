@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments::head(title='Werknemers')"></head>
+<body>
+<span th:if="${param.werknemerNietGevondenException}" class="fout">Werknemer niet gevonden</span>
+
+    <ul>
+        <li th:each="werknemer : ${werknemers}" th:object="${werknemer}">
+            <a th:href="@{/werknemers/{id}(id=*{id})}" th:text="*{naam}"></a></li>
+    </ul>
+</body>
+</html>

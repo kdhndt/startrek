@@ -19,6 +19,7 @@ public class JdbcBestellingenRepository implements BestellingenRepository {
         this.template = template;
         insert = new SimpleJdbcInsert(template)
                 .withTableName("bestellingen")
+                //onderstaande lijn wordt niet toegevoegd in voorbeeldoplossing?
                 .usingGeneratedKeyColumns("id");
     }
 

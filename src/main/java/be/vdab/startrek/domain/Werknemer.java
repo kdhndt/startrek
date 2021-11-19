@@ -18,13 +18,6 @@ public class Werknemer {
         this.budget = budget;
     }
 
-    public void setBudget(BigDecimal nieuwBudget) {
-        if (nieuwBudget.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException();
-        }
-        this.budget = nieuwBudget;
-    }
-
     public long getId() {
         return id;
     }
@@ -39,6 +32,10 @@ public class Werknemer {
 
     public BigDecimal getBudget() {
         return budget;
+    }
+
+    public String getNaam() {
+        return voornaam + " " + familienaam;
     }
 
 

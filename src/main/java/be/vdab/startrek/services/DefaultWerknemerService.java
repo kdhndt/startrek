@@ -13,31 +13,31 @@ import java.util.Optional;
 @Transactional
 public class DefaultWerknemerService implements WerknemerService {
 
-    private final WerknemersRepository repository;
+    private final WerknemersRepository werknemersRepository;
 
     public DefaultWerknemerService(WerknemersRepository repository) {
-        this.repository = repository;
+        this.werknemersRepository = repository;
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<Werknemer> findAll() {
-        return repository.findAll();
+        return werknemersRepository.findAll();
     }
 
     @Transactional(readOnly = true)
     @Override
     public Optional<Werknemer> findById(long id) {
-        return repository.findById(id);
+        return werknemersRepository.findById(id);
     }
 
     @Override
     public Optional<Werknemer> findByIdAndLock(long id) {
-        return repository.findByIdAndLock(id);
+        return werknemersRepository.findByIdAndLock(id);
     }
 
     @Override
     public void wijzigBudget(long id, BigDecimal bedrag) {
-        repository.wijzigBudget(id, bedrag);
+        werknemersRepository.verlaagBudget(id, bedrag);
     }
 }

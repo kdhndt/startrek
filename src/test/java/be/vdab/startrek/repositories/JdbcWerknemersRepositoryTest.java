@@ -1,5 +1,6 @@
 package be.vdab.startrek.repositories;
 
+import be.vdab.startrek.domain.Werknemer;
 import be.vdab.startrek.exceptions.OnvoldoendeBudgetException;
 import be.vdab.startrek.exceptions.WerknemerNietGevondenException;
 import org.junit.jupiter.api.Test;
@@ -32,24 +33,39 @@ class JdbcWerknemersRepositoryTest extends AbstractTransactionalJUnit4SpringCont
     @Test
     void findAll() {
         assertThat(repository.findAll())
-                .hasSize(countRowsInTable(WERKNEMERS));
+                .hasSize(countRowsInTable(WERKNEMERS))
+                //sortering controleren
+                .extracting(Werknemer::getVoornaam)
+                .isSortedAccordingTo(String::compareToIgnoreCase);
     }
 
     @Test
     void findById() {
         assertThat(repository.findById(idVanTestWerknemer1()))
-                .hasValueSatisfying(werknemer -> assertThat(werknemer.getVoornaam()).isEqualTo("test1voornaam"));
+                .hasValueSatisfying(werknemer -> assertThat(werknemer.getNaam()).isEqualTo("test1voornaam test1familienaam"));
     }
 
     @Test
-    void updateOnbestaandeWerknemer() {
+    void findByOnbestaandeIdVindtGeenWerknemer() {
+        assertThat(repository.findById(-1)).isEmpty();
+    }
+
+    @Test
+    void verlaagBudgetOnbestaandeWerknemer() {
         assertThatExceptionOfType(WerknemerNietGevondenException.class)
-                .isThrownBy(() -> repository.wijzigBudget(15, BigDecimal.TEN));
+                .isThrownBy(() -> repository.verlaagBudget(-1, BigDecimal.TEN));
     }
 
     @Test
-    void updateOnvoldoendeBudget() {
-        assertThatExceptionOfType(OnvoldoendeBudgetException.class)
-                .isThrownBy(() -> repository.wijzigBudget(idVanTestWerknemer1(), BigDecimal.valueOf(2000)));
+    void verlaagVoldoendeBudget() {
+        //geen assert nodig, maak gewoon dat je geen errors krijgt
+        repository.verlaagBudget(1, BigDecimal.valueOf(5));
     }
+
+    @Test
+    void verlaagOnvoldoendeBudget() {
+        assertThatExceptionOfType(OnvoldoendeBudgetException.class)
+                .isThrownBy(() -> repository.verlaagBudget(idVanTestWerknemer1(), BigDecimal.valueOf(2000)));
+    }
+
 }
