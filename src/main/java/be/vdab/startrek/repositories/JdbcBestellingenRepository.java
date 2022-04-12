@@ -19,7 +19,7 @@ public class JdbcBestellingenRepository implements BestellingenRepository {
         this.template = template;
         insert = new SimpleJdbcInsert(template)
                 .withTableName("bestellingen")
-                //onderstaande lijn wordt niet toegevoegd in voorbeeldoplossing?
+                //dit kan overgeslaan worden, maar dan moet je create() void returnen en moet je "insert.execute" doen i.p.v. "insert.executeAndReturnKey"
                 .usingGeneratedKeyColumns("id");
     }
 
@@ -38,7 +38,7 @@ public class JdbcBestellingenRepository implements BestellingenRepository {
         return template.query(sql, bestellingRowMapper, id);
     }
 
-    @Override
+/*    @Override
     public List<Bestelling> findBestellingenByWerknemerIdAndLock(long id) {
         var sql = """
                 select id, werknemerid, omschrijving, bedrag
@@ -47,7 +47,7 @@ public class JdbcBestellingenRepository implements BestellingenRepository {
                 for update
                 """;
         return template.query(sql, bestellingRowMapper, id);
-    }
+    }*/
 
     @Override
     public long create(Bestelling bestelling) {

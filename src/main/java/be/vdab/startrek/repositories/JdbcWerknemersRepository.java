@@ -49,7 +49,7 @@ public class JdbcWerknemersRepository implements WerknemersRepository {
         }
     }
 
-    @Override
+/*    @Override
     public Optional<Werknemer> findByIdAndLock(long id) {
         try {
             var sql = """
@@ -62,7 +62,7 @@ public class JdbcWerknemersRepository implements WerknemersRepository {
         } catch (IncorrectResultSizeDataAccessException ex) {
             return Optional.empty();
         }
-    }
+    }*/
 
     @Override
     public void verlaagBudget(long id, BigDecimal bedrag) {

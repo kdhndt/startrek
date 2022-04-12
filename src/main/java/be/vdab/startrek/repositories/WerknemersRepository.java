@@ -9,6 +9,6 @@ import java.util.Optional;
 public interface WerknemersRepository {
     List<Werknemer> findAll();
     Optional<Werknemer> findById(long id);
-    Optional<Werknemer> findByIdAndLock(long id);
+//    Optional<Werknemer> findByIdAndLock(long id);
     void verlaagBudget(long id, BigDecimal bedrag);
 }

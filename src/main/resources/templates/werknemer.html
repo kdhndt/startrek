@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head th:replace="fragments::head(title='Werknemer')"></head>
+<head th:replace="fragments::head(title=${werknemer} ? ${werknemer.naam} : 'Werknemer niet gevonden')"></head>
 <!--rode tekst kan hier blijkbaar genegeerd worden-->
 <body>
-<span th:if="${param.onvoldoendeBudgetException}" class="fout">Onvoldoende budget</span>
+<div th:if="${param.onvoldoendeBudget}" class="fout">Onvoldoende budget</div>
 
 <h1 th:if="not ${werknemer}">Werknemer niet gevonden:
     <th:block th:text="*{id}"></th:block>
@@ -11,16 +11,16 @@
 
 <th:block th:if="${werknemer}" th:object="${werknemer}">
     <h1 th:text="*{naam}"></h1>
-    <img th:src="@{/images/{id}.jpg(id=*{id})}" th:alt="|foto van werknemer met id *{id}|">
+    <img th:src="@{/images/{id}.jpg(id=*{id})}" th:alt="*{naam}">
     <p>Nummer</p>
     <strong th:text="*{id}"></strong>
     <p>Budget</p>
-    <strong th:text="*{budget}"></strong>
+    <strong th:text="*{{budget}}"></strong>
 
     <ul class="naastMekaar">
         <!--voeg een enkelvoudig aanhalingsteken aan als er een spatie zit in je th:text-->
-        <li><a th:text="'Vorige bestellingen'" th:href="@{/bestellingen/{id}(id=*{id})}"></a></li>
-        <li><a th:text="'Nieuwe bestelling'" th:href="@{/bestellingen/{id}/nieuwebestelling(id=*{id})}"></a></li>
+        <li><a th:text="'Vorige bestellingen'" th:href="@{/werknemers/{id}/vorigebestellingen(id=*{id})}"></a></li>
+        <li><a th:text="'Nieuwe bestelling'" th:href="@{/werknemers/{id}/nieuwebestelling(id=*{id})}"></a></li>
         <li><a th:text="Startpagina" th:href="@{/}"></a></li>
     </ul>
 </th:block>

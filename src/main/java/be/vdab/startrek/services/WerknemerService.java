@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface WerknemerService {
     List<Werknemer> findAll();
     Optional<Werknemer> findById(long id);
-    Optional<Werknemer> findByIdAndLock(long id);
-    void wijzigBudget(long id, BigDecimal bedrag);
+//    Optional<Werknemer> findByIdAndLock(long id);
+    //wijzigBudget van onze repo wordt hier niet aangemaakt, want dit kan enkel gebeuren bij het aanmaken van een nieuwe record, dus in je BestellingenService
+//    void wijzigBudget(long id, BigDecimal bedrag);
 }

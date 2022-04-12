@@ -26,17 +26,18 @@ public class DefaultBestellingService implements BestellingService {
         return bestellingenRepository.findBestellingenByWerknemerId(id);
     }
 
-    @Override
+/*    @Override
     public List<Bestelling> findBestellingenByWerknemerIdAndLock(long id) {
         return bestellingenRepository.findBestellingenByWerknemerIdAndLock(id);
-    }
+    }*/
 
     @Override
     public long createBestellingEnWijzigBudget(Bestelling bestelling) {
-        //lock beide voor het wijzigen
-        bestellingenRepository.findBestellingenByWerknemerIdAndLock(bestelling.getWerknemerId());
-        werknemersRepository.findByIdAndLock(bestelling.getWerknemerId());
+        //findByIdAndLock en zelfs findById zijn hier helemaal niet nodig.
+
         //voer samen uit in een transactie
+        //wijzig werknemer record en lock het tot einde v/d transactie
+        //zo kunnen er geen gelijktijdige problemen opduiken
         werknemersRepository.verlaagBudget(bestelling.getWerknemerId(), bestelling.getBedrag());
         return bestellingenRepository.create(bestelling);
     }

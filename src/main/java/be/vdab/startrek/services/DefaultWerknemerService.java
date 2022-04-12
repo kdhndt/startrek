@@ -31,13 +31,13 @@ public class DefaultWerknemerService implements WerknemerService {
         return werknemersRepository.findById(id);
     }
 
-    @Override
+/*    @Override
     public Optional<Werknemer> findByIdAndLock(long id) {
         return werknemersRepository.findByIdAndLock(id);
-    }
+    }*/
 
-    @Override
+/*    @Override
     public void wijzigBudget(long id, BigDecimal bedrag) {
         werknemersRepository.verlaagBudget(id, bedrag);
-    }
+    }*/
 }

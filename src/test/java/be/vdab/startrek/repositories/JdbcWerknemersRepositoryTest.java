@@ -59,7 +59,7 @@ class JdbcWerknemersRepositoryTest extends AbstractTransactionalJUnit4SpringCont
     @Test
     void verlaagVoldoendeBudget() {
         //geen assert nodig, maak gewoon dat je geen errors krijgt
-        repository.verlaagBudget(1, BigDecimal.valueOf(5));
+        repository.verlaagBudget(idVanTestWerknemer1(), BigDecimal.valueOf(5));
     }
 
     @Test

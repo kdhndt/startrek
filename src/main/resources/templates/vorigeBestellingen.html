@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments::head(title=${werknemer} ? 'Bestellingen van' + ${werknemer.naam} : 'Werknemer niet gevonden')"></head>
+<body>
+
+<h1 th:if="not ${werknemer}" class="fout">
+    <!--naarwaar verwijst deze id path variable?-->
+    Werknemer niet gevonden: <th:block th:text="${id}"></th:block>
+</h1>
+
+<th:block th:if="${werknemer}" th:object="${werknemer}">
+    <h1 th:text="|Bestellingen van *{naam}|"></h1>
+    <table id="bestellingen">
+        <thead>
+        <tr>
+            <th>Nummer</th>
+            <th>Omschrijving</th>
+            <th>Bedrag</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bestelling : ${bestellingen}" th:object="${bestelling}">
+            <td th:text="*{id}" class="test"></td>
+            <td th:text="*{omschrijving}"></td>
+            <!--dubbele accolade om correcte formaat terug te geven-->
+            <td th:text="*{{bedrag}}"></td>
+        </tr>
+        </tbody>
+    </table>
+</th:block>
+<a th:href="@{/}">Startpagina</a>
+</body>
+</html>

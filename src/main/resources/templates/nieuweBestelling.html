@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head th:replace="fragments::head(title='Bestelling toevoegen')"></head>
+<head th:replace="fragments::head(title='Nieuwe bestelling')"></head>
 <body>
-<h1>Bestelling voor
-    <th:block th:text="${werknemer.naam}"></th:block>
+<h1 th:if="not ${werknemer}" class="fout">
+    Werknemer niet gevonden: <th:block th:text="${id}"></th:block>
 </h1>
-<form method="post" th:object="${bestelling}" th:action="@{/bestellingen}">
-    <!--geef id de value die hij kreeg in het meegegeven model, anders is deze Bestelling niet @Valid bij het ontvangen in de controller-->
-    <!--geef attributen terug in de correcte volgorde-->
-    <!--let op met hoofdletters, e.g. werknemerId-->
-    <input type="hidden" name="id" th:value="*{id}">
-    <input type="hidden" name="werknemerId" th:value="*{werknemerId}">
-    <label>Omschrijving<span th:errors="*{omschrijving}"></span><input th:field="*{omschrijving}" required></label>
-    <label>Bedrag<span th:errors="*{bedrag}"></span><input th:field="*{bedrag}" required type="number" min="0"></label>
-    <button>Bestel</button>
-</form>
+<th:block if="${werknemer}">
+    <h1>Bestelling voor
+        <th:block th:text="${werknemer.naam}"></th:block>
+    </h1>
+    <form method="post" th:object="${bestelling}" th:action="@{/werknemers/bestel}">
+        <!--geef id de value die hij kreeg in het meegegeven model, anders is deze Bestelling niet @Valid bij het ontvangen in de controller-->
+        <!--geef attributen terug in de correcte volgorde-->
+        <!--let op met hoofdletters, e.g. werknemerId-->
+        <!--gebruik th:field zoals bij je gewoonlijke form onderdelen, name="" is niet nodig-->
+        <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{werknemerId}">
+        <label>Omschrijving<span th:errors="*{omschrijving}"></span><input th:field="*{omschrijving}" required autofocus></label>
+        <label>Bedrag<span th:errors="*{bedrag}"></span><input th:field="*{bedrag}" required type="number" min="0.01" step="0.01"></label>
+        <button>Bestel</button>
+    </form>
+</th:block>
 
 <a th:text="Startpagina" th:href="@{/}"></a>
 </body>

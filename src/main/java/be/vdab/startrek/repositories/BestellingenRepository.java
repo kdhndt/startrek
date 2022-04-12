@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface BestellingenRepository {
     List<Bestelling> findBestellingenByWerknemerId(long id);
-    List<Bestelling> findBestellingenByWerknemerIdAndLock(long id);
+//    List<Bestelling> findBestellingenByWerknemerIdAndLock(long id);
     long create(Bestelling bestelling);
 }
